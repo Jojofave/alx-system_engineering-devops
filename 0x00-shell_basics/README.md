@@ -1,1 +1,1 @@
-move that file
+Delete the file
