@@ -1,2 +1,2 @@
 #!/bin/bash
-head find -type f ls-lt
+ls -t1 | head -n 10
