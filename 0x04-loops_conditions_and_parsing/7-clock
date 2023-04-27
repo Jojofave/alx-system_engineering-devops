@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+hour=0
+minute=1
+
+while [ $hour -le 12 ]
+do
+    if [ $hour -lt 10 ]
+    then
+        echo -n "0$hour:"
+    else
+        echo -n "$hour:"
+    fi
+
+    if [ $minute -lt 10 ]
+    then
+        echo "0$minute"
+    else
+        echo "$minute"
+    fi
+
+    minute=$((minute+1))
+
+    if [ $minute -eq 60 ]
+    then
+        minute=0
+        hour=$((hour+1))
+    fi
+done | head -n 70
