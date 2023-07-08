@@ -1,0 +1,16 @@
+#!/bin/bash
+
+domain="$1"
+subdomain="$2"
+
+if [[ -z "$subdomain" ]]; then
+  subdomains=("www" "lb-01" "web-01" "web-02")
+else
+  subdomains=("$subdomain")
+fi
+
+for sub in "${subdomains[@]}"; do
+  output=$(dig "$sub.$domain" | awk '/^'"$sub.$domain"'/ {print "The subdomain '"$sub"' is a " $4 " record and points to " $5}')
+  echo "$output"
+done
+

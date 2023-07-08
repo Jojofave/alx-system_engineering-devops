@@ -1,0 +1,22 @@
+global
+    daemon
+    maxconn 256
+
+frontend http_front
+    bind *:80
+    reqadd X-Forwarded-Proto:\ http
+    default_backend http_back
+
+frontend https_front
+    bind *:443 ssl crt /etc/letsencrypt/live/www.fave.com/fullchain.pem
+    reqadd X-Forwarded-Proto:\ https
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server server1 127.0.0.1:80 check
+
+backend https_back
+    balance roundrobin
+    server server1 127.0.0.1:80 check
+
