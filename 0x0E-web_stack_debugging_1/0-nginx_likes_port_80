@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# This Bash script installs necessary tools, starts Nginx if not running, and configures Nginx to listen on port 80.
+
+# Update package lists
+apt-get update
+
+# Install net-tools and curl
+apt-get install -y net-tools curl
+
+# Check if Nginx is running and start if not
+service nginx status >/dev/null 2>&1 || service nginx start
+
+# Check if Nginx is listening on port 80, if not, update the configuration
+netstat -tuln | grep 80 || sed -i 's/listen 80;/listen 80 default_server;/g' /etc/nginx/sites-available/default
+
+# Restart Nginx
+service nginx restart
+
