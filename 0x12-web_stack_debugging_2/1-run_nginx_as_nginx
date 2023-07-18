@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Fixes a web server to run Nginx as the nginx user listening on port 8080.
+sed -i 's/user  nginx;/user  nginx nginx;/g' /etc/nginx/nginx.conf
+
+# Configure Nginx to listen on all active IPs on port 8080
+sed -i '/listen       80;/a \    listen       8080;' /etc/nginx/sites-available/default
+
+# Restart Nginx service
+service nginx restart
